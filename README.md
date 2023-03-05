@@ -6,8 +6,10 @@ I assumed the struct semaphore to support a FIFO queue to maitain the list of wa
 
 ``` cpp
 // Pseudocode :
+// Initializing the values of the three semaphores required in the soltuion
+semaphore turn = 1,res_mutex = 1,rd_mutex = 1;
 
-semaphore turn = 1,wr_mutex = 1,rd_mutex = 1;
+//initial value of reading processes
 int read_cnt = 0;
 
 //structure of reader's process:
@@ -16,7 +18,7 @@ int read_cnt = 0;
     wait(rd_mutex); //ensuring only one read process gets the chance to update read_cnt
     read_cnt++;
     if(rd_cnt==1){
-        wait(wr_mutex); //first reader will ask for resource access for readers
+        wait(res_mutex); //first reader will ask for resource access for readers
     }
     signal(rd_mutex); //releasing access for updation of read count
     
@@ -25,7 +27,7 @@ int read_cnt = 0;
     wait(rd_mutex); //ensuring only one read process gets the chance to update read_cnt
     read_cnt--;
     if(rd_cnt==0){
-        signal(wr_mutex); //freeing the resources for writers to write
+        signal(res_mutex); //freeing the resources for writers to write
     }
     signal(rd_mutex);   //releasing access for updation of read count
 
@@ -33,22 +35,26 @@ int read_cnt = 0;
 //structure of writers process:
 
     wait(turn); //waiting for its turn for execution
-    wait(wr_mutex); //waiting if at present some reader is reading
+    wait(res_mutex); //waiting if at present some reader is reading
     
     //signal(turn) can be written here too as any process that will be removed from turn semaphore's list 
-    // will wait on wr_mutex as wr_mutex will still not be released by the writing process 
+    // will wait on res_mutex as res_mutex will still not be released by the writing process 
 
     /*writing is performed*/
     /*critical section*/
 
     signal(turn); //Signalling the next reader or writer process in turn queue to wakeup
-    signal(wr_mutex); //releasing the resource for the other reader or writer process
+    signal(res_mutex); //releasing the resource for the other reader or writer process
     
 ```
+##Explanation of the pseudocode
+### Reader's process
+Any process reader process trying to update the readcount variable should do it atomically. The rw_mutex ensures this. Now if the there is a reader process it will ask for the exclusive rights for reader process to read and when the reader processes in the queue (those came before any of write process) will complete will release the res_mutex for the writer process. Similarly for writer process it will acquire the resource access for itself and the writers processes before any reader process and releasing 
+
 ## Criterias met by the pseudocode to serve as a solution to the critical section problem
 
 ### Mutual Exclusion
-The rw_mutex ensures that only one reader process gets the chance to update the read count variable and the wr_mutex ensures that only one category(either reader or the writer process) get the chance to acess the resources or the critical section.
+The rw_mutex ensures that only one reader process gets the chance to update the read count variable and the res_mutex ensures that only one category(either reader or the writer process) get the chance to acess the resources or the critical section.
 ### Progress
 As any process that wants to enter into the critical section gets into the queue maintained by turn semahphore instead of some other process setting a turn variable to that process, progress is ensured as any process if in critical section has to the signal the turn variable upon leaving. 
 ### Bounded Waiting
