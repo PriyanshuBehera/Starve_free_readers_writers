@@ -47,8 +47,8 @@ int read_cnt = 0;
     signal(res_mutex); //releasing the resource for the other reader or writer process
     
 ```
-##Explanation of the pseudocode
-### Reader's process
+## Explanation of the pseudocode
+
 Any process reader process trying to update the readcount variable should do it atomically. The rw_mutex ensures this. Now if the there is a reader process it will ask for the exclusive rights for reader process to read and when the reader processes in the queue (those came before any of write process) will complete will release the res_mutex for the writer process. Similarly,when the turn for writer process comes, it will acquire the resource access for itself and the writers processes before any reader process and signalling it when the writers process in the consecutive list ends.
 
 ## Criterias met by the pseudocode to serve as a solution to the critical section problem
