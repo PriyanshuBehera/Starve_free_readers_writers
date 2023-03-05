@@ -58,5 +58,5 @@ Since the turn semaphore maintains a FIFO queue it ensures that whichever proces
 Also it can be seen that there is no condition of cyclic waiting in this case so no deadlock can occur.
 
 ## Reference
-Abraham Silberscahtz, Peter B Galvin ,Gerg Gagne - Operating System Concepts
-Wikipedia - https://en.wikipedia.org/wiki/Readers%E2%80%93writers_problem
+- Abraham Silberscahtz, Peter B Galvin ,Gerg Gagne - Operating System Concepts
+- [Wikipedia](https://en.wikipedia.org/wiki/Readers%E2%80%93writers_problem)
