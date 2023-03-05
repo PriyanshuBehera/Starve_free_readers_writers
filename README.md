@@ -36,13 +36,13 @@ int read_cnt = 0;
     wait(wr_mutex); //waiting if at present some reader is reading
     
     //signal(turn) can be written here too as any process that will be removed from turn semaphore's list 
-    // will wait on wrt as wrt will still not be released by writing process 
+    // will wait on wr_mutex as wr_mutex will still not be released by the writing process 
 
     /*writing is performed*/
     /*critical section*/
 
-    signal(turn);
-    signal(wr_mutex);
+    signal(turn); //Signalling the next reader or writer process in turn queue to wakeup
+    signal(wr_mutex); //releasing the resource for the other reader or writer process
     
 ```
 ## Criterias met by the pseudocode to serve as a solution to the critical section problem
