@@ -4,7 +4,7 @@
 Classical problem of synchronization(Readers - Writers) where no category of process either reader or writer should starve.
 
 ## Proposed Solution
-I assumed the struct semaphore to support a FIFO queue to maintain the list of waiting processes.Here, the turn semaphore is common to both reader and writer processes and any process coming will have to call wait(turn) ensuring every process is executed in the order they come. Also the mutex for resource access (res_mutex) is common to both reader and writer processes. Here reading can be performed in parallel but not writing and when a writer process is writing no reading process can read.
+I assumed the struct semaphore to support a FIFO queue to maintain the list of waiting processes.Here, the turn semaphore is common to both reader and writer processes and any process coming will have to call wait(turn) ensuring every process is executed in the order they come. Also the mutex for resource access (res_mutex) is common to both reader and writer processes. Here reading can be performed in parallel but not writing and when a writer process is writing no reading process can read and vice-versa
 
 # Pseudocode for starve free readers writers problem
 
