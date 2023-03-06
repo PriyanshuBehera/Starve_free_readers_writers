@@ -3,7 +3,7 @@
 ## Problem discription
 Classical problem of synchronization(Readers - Writers) where no category of process either reader or writer should starve.
 
-#Pseudocode for starve free readers writers problem
+# Pseudocode for starve free readers writers problem
 
 ## Proposed Solution
 I assumed the struct semaphore to support a FIFO queue to maitain the list of waiting processes. Every proecss will first wait on turn semaphore and each will get executed in the order they come.
