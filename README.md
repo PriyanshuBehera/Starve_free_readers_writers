@@ -65,7 +65,7 @@ Any process which comes have to call wait(turn) so they execute in the order the
 ### Mutual Exclusion
 The rw_mutex ensures that only one reader process gets the chance to update the read count variable and the res_mutex ensures that only one category(either reader or the writer process) get the chance to access the resources and hence ensuring mutual exclusion in the critical section along with the turn semaphore.
 ### Progress
-As any process that wants to enter into the critical section gets into the queue maintained by turn semahphore instead of some other process setting a turn variable for that process, progress is ensured, and also any process in critical section has to the signal the turn variable on leaving. 
+As any process that wants to enter into the critical section gets into the queue maintained by turn semahphore instead of some other process setting a turn variable for that process, progress is ensured, and also any process in critical section has to the signal the turn semaphore on leaving. 
 ### Bounded Waiting
 Since the turn semaphore maintains a FIFO queue it ensures that whichever process comes first is executed first thus bounding the time a process needs to wait before execution
 
