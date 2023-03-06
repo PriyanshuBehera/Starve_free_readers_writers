@@ -6,7 +6,7 @@ Classical problem of synchronization(Readers - Writers) where no category of pro
 # Pseudocode for starve free readers writers problem
 
 ## Proposed Solution
-I assumed the struct semaphore to support a FIFO queue to maitain the list of waiting processes. Every proecss will first wait on turn semaphore and each will get executed in the order they come.
+I assumed the struct semaphore to support a FIFO queue to maitain the list of waiting processes. Every proecss will first wait on turn semaphore and each will get executed in the order they come. The turn semaphore is common to both reader and writer processes and any process coming will have to call wait(turn) ensuring every process is executed in the order they come.
 
 ``` cpp
 // Pseudocode :
