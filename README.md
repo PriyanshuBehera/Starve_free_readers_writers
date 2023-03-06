@@ -7,7 +7,7 @@ Classical problem of synchronization(Readers - Writers) where no category of pro
 I assumed the struct semaphore to support a FIFO queue to maintain the list of waiting processes and also an integral value. The wait function of semaphore struct decrements this value and pushes the calling process to queue if it is negative. The signal function increments the value and if it is less than equal to zero it wakes up a process from the FIFO queue thus maintained.
 
 ## Proposed Solution
-In my solution, the turn semaphore is common to both reader and writer processes and any process coming will have to call wait(turn) ensuring every process is executed in the order they come and also they need to call signal(turn) when their turn ends.Furthermore, mutex for resource access (res_mutex) is common to both reader and writer processes. Here reading can be performed in parallel but not writing and when a writer process is writing no reader process can read and vice-versa
+In my solution, the turn semaphore is common to both reader and writer processes and any process coming will have to call wait(turn) ensuring every process is executed in the order they come and also they need to call signal(turn) when their turn ends.Furthermore, semaphore for resource access (res_mutex) is common to both reader and writer processes. Here reading can be performed in parallel but not writing and when a writer process is writing no reader process can read and vice-versa
 
 # Pseudocode for starve free readers writers problem
 
