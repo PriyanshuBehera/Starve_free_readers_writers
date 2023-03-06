@@ -1,6 +1,6 @@
 # Starve_free_readers_writers
 
-## Problem discription
+## Problem description
 Classical problem of synchronization(Readers - Writers) where no category of process either reader or writer should starve.
 
 ## Semaphores
